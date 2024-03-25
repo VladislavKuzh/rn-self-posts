@@ -1,20 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import AppLoading from 'expo-app-loading';
+import { AppNavigation } from './src/navigation/AppNavigation';
+
+import { bootstrap } from './src/bootstrap'
 
 export default function App() {
+
+  const [isReady, setIsReady] = useState(false)
+
+  if(!isReady) {
+    return (
+      <AppLoading 
+        startAsync={bootstrap} 
+        onError={err => console.log(err)}
+        onFinish={() => setIsReady(true)}
+      />
+    )
+  }
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AppNavigation/>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
