@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import { useState } from 'react';
 import AppLoading from 'expo-app-loading';
 import { AppNavigation } from './src/navigation/AppNavigation';
