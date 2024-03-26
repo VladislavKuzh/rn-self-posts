@@ -1,24 +1,13 @@
-import { View, Text, StyleSheet, Button, FlatList } from 'react-native'
 import { DATA } from '../data'
-import { Post } from '../components/Post'
+import { PostList } from '../components/PostList'
 
 export const MainScreen = ({ navigation }) => {
     const openPostHandler = post => {
-        navigation.navigate('Post', {postId: post.id, date: post.date, booked: post.booked})
+        navigation.navigate('Post', {
+            postId: post.id, 
+            date: post.date, 
+            booked: post.booked
+        })
     }
-    return (
-        <View style={styles.wrapper}>
-            <FlatList
-                data={DATA}
-                keyExtractor={post => post.id}
-                renderItem={({item}) => <Post post={item} onOpen={openPostHandler}/>}
-            />
-        </View>
-    )
+    return <PostList data={DATA} onOpen={openPostHandler}/>
 }
-
-const styles = StyleSheet.create({
-    wrapper: {
-        padding: 10
-    }
-})
