@@ -251,12 +251,34 @@ export const AppNavigation = () => {
       <Drawer.Navigator 
         initialRouteName="PostTabs"
         screenOptions={{
-          headerShown: false
+          headerShown: false,
+          drawerActiveTintColor: THEME.MAIN_COLOR,
+          drawerLabelStyle: {
+            fontFamily: 'open-bold'
+          }
         }}
       >
-        <Drawer.Screen name="PostTabs" component={TabsNavigator}/>
-        <Drawer.Screen name="About" component={AboutNavigator}/>
-        <Drawer.Screen name="Create" component={CreateNavigator}/>
+        <Drawer.Screen 
+          name="PostTabs" 
+          component={TabsNavigator}
+          options={{
+            drawerLabel: 'Main'
+          }}
+        />
+        <Drawer.Screen 
+          name="About" 
+          component={AboutNavigator}
+          options={{
+            drawerLabel: 'About App'
+          }}  
+        />
+        <Drawer.Screen 
+          name="Create" 
+          component={CreateNavigator}
+          options={{
+            drawerLabel: 'Create post'
+          }}
+        />
       </Drawer.Navigator>
     </NavigationContainer>
   );
