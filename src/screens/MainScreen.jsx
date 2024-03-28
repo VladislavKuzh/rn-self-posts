@@ -1,5 +1,7 @@
-import { DATA } from '../data'
+import { useDispatch, useSelector } from 'react-redux'
 import { PostList } from '../components/PostList'
+import { loadPost } from '../store/actions/post'
+import { useEffect } from 'react'
 
 export const MainScreen = ({ navigation }) => {
     const openPostHandler = post => {
@@ -9,5 +11,15 @@ export const MainScreen = ({ navigation }) => {
             booked: post.booked
         })
     }
-    return <PostList data={DATA} onOpen={openPostHandler}/>
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+      dispatch(loadPost())
+    }, [dispatch])
+
+    const {allPosts} = useSelector(state => state.post)
+    
+
+    return <PostList data={allPosts} onOpen={openPostHandler}/>
 }

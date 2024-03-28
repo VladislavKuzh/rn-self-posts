@@ -1,10 +1,22 @@
 import { View, Text, StyleSheet, Image, Button, ScrollView, Alert } from 'react-native'
-import { DATA } from '../data';
 import { THEME } from '../theme';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { removePost } from '../store/actions/post';
 export const PostScreen = ({route, navigation}) => {
   const { postId } = route.params;
 
-  const post = DATA.find(p => p.id === postId)
+  const post = useSelector(state => state.post.allPosts.find(p => p.id === postId))
+
+  const booked = useSelector(state=>
+    state.post.bookedPosts.some(post => post.id === postId)
+  )
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    navigation.setParams({ booked })
+  }, [booked])
 
   const removeHandler = () => {
     Alert.alert(
@@ -18,11 +30,18 @@ export const PostScreen = ({route, navigation}) => {
         {
           text: 'Delete', 
           style: 'destructive',
-          onPress: () => console.log('OK Pressed')
+          onPress: () => {
+            navigation.navigate('Main')
+            dispatch(removePost(postId))
+          }
         },
       ],
       {cancelable: false}
     );
+  }
+
+  if(!post) {
+    return null
   }
 
   return (

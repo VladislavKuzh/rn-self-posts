@@ -14,10 +14,13 @@ import { BookedScreen } from "../screens/BookedScreen";
 import { AboutScreen } from "../screens/AboutScreen"
 import { CreateScreen } from "../screens/CreateScreen"; 
 import { THEME } from "../theme";
+import { useDispatch } from "react-redux";
+import { toggleBooked } from "../store/actions/post";
 
 const PostStack = createNativeStackNavigator();
 
 const PostStackScreen = () => {
+  const dispatch = useDispatch()
   return (
     <PostStack.Navigator 
         initialRouteName="Main" 
@@ -65,7 +68,7 @@ const PostStackScreen = () => {
                 <Item 
                   title="Take photo"
                   iconName={iconName}
-                  onPress={() => {console.log('Press photo')}} 
+                  onPress={() => dispatch(toggleBooked(route.params.postId))} 
                 />
               </HeaderButtons>
             )},
@@ -78,6 +81,7 @@ const PostStackScreen = () => {
 const BookedStack = createNativeStackNavigator();
 
 const BookedStackScreen = () => {
+  const dispatch = useDispatch()
   return (
     <BookedStack.Navigator
       initialRouteName="Booked" 
@@ -116,7 +120,7 @@ const BookedStackScreen = () => {
               <Item 
                 title="Take photo"
                 iconName={iconName}
-                onPress={() => {console.log('Press photo')}} 
+                onPress={() => dispatch(toggleBooked(route.params.postId))} 
               />
             </HeaderButtons>
           )},
@@ -273,7 +277,7 @@ export const AppNavigation = () => {
           }}  
         />
         <Drawer.Screen 
-          name="Create" 
+          name="CreateScreen" 
           component={CreateNavigator}
           options={{
             drawerLabel: 'Create post'
